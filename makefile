@@ -1,4 +1,4 @@
-
+.PHONY: main
 
 main: main.c
   echo 'started compiling main'
