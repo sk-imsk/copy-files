@@ -6,29 +6,48 @@
 #include <errno.h>
 
 
-int main(int argc, char * argv[]){
-  printf("this is in the early stages of development please report bugs to https://github.com/sk-imsk/copy-files/issues\n")
+int main(int argc, const char * argv[]){
+    printf("\nthis is in the early stages of development please report bugs to https://github.com/sk-imsk/copy-files/issues\n");
   if (argc == 1){
-      printf("usage: copy filename");
+      printf("usage: copy filename, write filename");
     return 1;
 }
     struct filestuff {
-      char filename[20];
+      char readFname[20];
       char filedata[100];
+       char writeFname[20];
     };
     struct filestuff file;
-    strncpy(file.filename, argv[1], sizeof(file.filename) - 1);
-    file.filename[sizeof(file.filename) - 1] = '\0';
+    
+    // write read file name
+    strncpy(file.readFname, argv[1], sizeof(file.readFname) - 1);
+    file.readFname[sizeof(file.readFname) - 1] = '\0';
+    
+    // write write file name
+    strncpy(file.writeFname, argv[2], sizeof(file.writeFname) -1);
+    file.writeFname[sizeof(file.writeFname) - 1] = '\0';
+    
     // error check
-    FILE *filepointer;
-    filepointer = fopen(file.filename, "r");
-    if (filepointer == NULL){
+    FILE *fileread;
+    fileread = fopen(file.readFname, "r");
+    if (fileread == NULL){
       perror("error");
       return 2;
       }
+    
+    FILE *filewrite;
+    filewrite = fopen(file.writeFname, "w");
+    
+    if (filewrite == NULL){
+        perror("error");
+        return 2;
+    }
+    
     // start reading and writeing file
-    while(fgets(file.filedata, 99, filepointer)){
-        printf("%s", filedata);}
+    while(fgets(file.filedata, 99, fileread)){
+        printf("%s", file.filedata);}
   
-  fclose(filepointer);
+    fclose(filewrite);
+    fclose(fileread);
 }
+
