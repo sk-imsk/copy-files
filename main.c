@@ -31,6 +31,7 @@ int main(int argc, const char * argv[]){
     FILE *fileread;
     fileread = fopen(file.readFname, "r");
     if (fileread == NULL){
+      printf("Error opening read file");      
       perror("error");
       return 2;
       }
@@ -39,13 +40,14 @@ int main(int argc, const char * argv[]){
     filewrite = fopen(file.writeFname, "w");
     
     if (filewrite == NULL){
+        printf("Error writeing to destination file");
         perror("error");
         return 2;
     }
     
     // start reading and writeing file
     while(fgets(file.filedata, 99, fileread)){
-        printf("%s", file.filedata);}
+    	fprintf(filewrite, file.filedata);}
   
     fclose(filewrite);
     fclose(fileread);
