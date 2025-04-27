@@ -6,9 +6,13 @@
 #include <errno.h>
 
 
+
+
+
+
 int main(int argc, const char * argv[]){
     printf("\nthis is in the early stages of development please report bugs to https://github.com/sk-imsk/copy-files/issues\n");
-  if (argc == 1){
+  if (argc < 2){
       printf("usage: copy filename, write filename");
     return 1;
 }
@@ -29,7 +33,7 @@ int main(int argc, const char * argv[]){
     
     // error check
     FILE *fileread;
-    fileread = fopen(file.readFname, "r");
+    fileread = fopen(file.readFname, "rb");
     if (fileread == NULL){
       printf("Error opening read file");      
       perror("error");
@@ -37,8 +41,7 @@ int main(int argc, const char * argv[]){
       }
     
     FILE *filewrite;
-    filewrite = fopen(file.writeFname, "w");
-    
+    filewrite = fopen(file.writeFname, "wb");
     if (filewrite == NULL){
         printf("Error writeing to destination file");
         perror("error");
@@ -46,10 +49,9 @@ int main(int argc, const char * argv[]){
     }
     
     // start reading and writeing file
-    while(fgets(file.filedata, 99, fileread)){
-    	fprintf(filewrite, file.filedata);}
+    while(fread(file.filedata, 1, sizeof(fileread), fileread) ){
+    	fwrite(file.filedata, 1, sizeof(fileread), filewrite);}
   
     fclose(filewrite);
     fclose(fileread);
 }
-
