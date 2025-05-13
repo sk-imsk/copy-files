@@ -6,7 +6,7 @@
 #include <errno.h>
 
 
-
+#define PROGRAM_NAME "copy-files"
 
 
 
